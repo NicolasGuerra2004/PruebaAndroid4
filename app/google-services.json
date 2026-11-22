@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "626606296960",
+    "firebase_url": "https://pruebaandroid-445be-default-rtdb.firebaseio.com",
+    "project_id": "pruebaandroid-445be",
+    "storage_bucket": "pruebaandroid-445be.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626606296960:android:fa8bee6c5b5b57b66f3b65",
+        "android_client_info": {
+          "package_name": "com.guerr.barriored"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "626606296960-1cmq6537n6ng3b2hqeelj2f66am65rah.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.guerr.barriored",
+            "certificate_hash": "39b0575e9308e6f9d9cf36f7b802e1c9c3f6d682"
+          }
+        },
+        {
+          "client_id": "626606296960-qjgim8f0odfs7scafuvg3nk656mqct4t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPTtL4hgG0ss1ModtxNYIVmWSAhr_7FPg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "626606296960-qjgim8f0odfs7scafuvg3nk656mqct4t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

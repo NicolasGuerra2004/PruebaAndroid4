@@ -1,0 +1,32 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    "users": {
+      "$uid": {
+        ".read": "auth != null",
+        ".write": "auth != null && (auth.uid === $uid || root.child('users').child(auth.uid).child('rol').val() === 'admin')",
+        "rol": {
+          ".validate": "newData.val() === 'vecino' || root.child('users').child(auth.uid).child('rol').val() === 'admin' || (data.exists() && newData.val() === data.val())"
+        }
+      }
+    },
+    "announcements": {
+      ".read": "auth != null",
+      "$announcement_id": {
+        ".write": "auth != null && root.child('users').child(auth.uid).child('rol').val() === 'admin'"
+      }
+    },
+    "alerts": {
+      ".read": "auth != null",
+      "$alert_id": {
+        ".write": "auth != null && (!data.exists() || root.child('users').child(auth.uid).child('rol').val() === 'admin')"
+      }
+    },
+    "chat": {
+      ".read": "auth != null",
+      "$msg_id": {
+        ".write": "auth != null && (!data.exists() && newData.child('senderUid').val() === auth.uid)"
+      }
+    }
+  }
+}

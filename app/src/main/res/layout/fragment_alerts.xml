@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_screen">
+
+    <!-- Top Broker Status Bar -->
+    <LinearLayout
+        android:id="@+id/layoutMqttStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/status_connected_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <View
+            android:id="@+id/viewStatusDot"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@drawable/ic_dot" />
+
+        <TextView
+            android:id="@+id/tvMqttStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/mqtt_connecting"
+            android:textColor="@color/status_connected"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Quick Emergency Emission Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/alerts_quick_title"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary" />
+
+    <!-- Horizontal scroll for category buttons -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:clipToPadding="false"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Robo / Seguridad (Rojo #D32F2F) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAlertRobo"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="6dp"
+                android:text="🚨 Robo / Seguridad"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:cornerRadius="10dp"
+                app:backgroundTint="@color/cat_robo" />
+
+            <!-- Emergencia Médica (Naranjo #F57C00) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAlertMedica"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginEnd="6dp"
+                android:text="🚑 Emergencia Médica"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:cornerRadius="10dp"
+                app:backgroundTint="@color/cat_medica" />
+
+            <!-- Actividad Sospechosa (Ámbar #FFA000) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAlertSospechosa"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginEnd="6dp"
+                android:text="👁️ Act. Sospechosa"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:cornerRadius="10dp"
+                app:backgroundTint="@color/cat_sospechosa" />
+
+            <!-- Incendio / Siniestro (Rojo oscuro #B71C1C) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAlertIncendio"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginEnd="6dp"
+                android:text="🔥 Incendio / Siniestro"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:cornerRadius="10dp"
+                app:backgroundTint="@color/cat_incendio" />
+
+            <!-- Mascota / Comunidad (Teal #00796B) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAlertMascota"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginEnd="4dp"
+                android:text="🐾 Mascota / Comunidad"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:cornerRadius="10dp"
+                app:backgroundTint="@color/cat_mascota" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!-- History Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="10dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/alerts_history_title"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary" />
+
+        <ProgressBar
+            android:id="@+id/progressAlerts"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAlerts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tvEmptyAlerts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/empty_alerts"
+            android:textColor="@color/text_muted"
+            android:textSize="14sp"
+            android:visibility="gone" />
+    </FrameLayout>
+
+</LinearLayout>

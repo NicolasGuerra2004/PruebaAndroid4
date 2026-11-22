@@ -1,17 +1,18 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
     namespace 'com.guerr.barriored'
     compileSdk {
-        version = release(37)
+        version = release(36)
     }
 
     defaultConfig {
         applicationId "com.guerr.barriored"
         minSdk 27
-        targetSdk 37
+        targetSdk 36
         versionCode 1
         versionName "1.0"
 
@@ -29,13 +30,31 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
-    implementation libs.activity.ktx
     implementation libs.appcompat
     implementation libs.constraintlayout
+    implementation libs.google.firebase.auth
+    implementation libs.google.firebase.messaging
     implementation libs.material
+    implementation libs.activity.ktx
+
+    // Firebase (Database, Auth, FCM)
+    implementation libs.firebase.database
+    implementation libs.firebase.auth
+    implementation libs.firebase.messaging
+    implementation libs.play.services.auth
+
+    // MQTT Paho Client
+    implementation libs.paho.mqtt
+
+    // Gson for JSON serialization in MQTT
+    implementation libs.gson
+
     testImplementation libs.junit
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.ext.junit
