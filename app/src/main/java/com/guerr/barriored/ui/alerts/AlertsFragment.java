@@ -299,19 +299,7 @@ public class AlertsFragment extends Fragment implements MqttManager.MqttStatusLi
 
     @Override
     public void onConnectionStatusChanged(boolean connected, String statusMessage) {
-        if (!isAdded() || binding == null || getContext() == null) return;
-
-        binding.tvMqttStatus.setText(connected ? getString(R.string.mqtt_connected) : statusMessage);
-
-        if (connected) {
-            binding.layoutMqttStatus.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.status_connected_bg));
-            binding.tvMqttStatus.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
-            binding.viewStatusDot.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.status_connected_dot));
-        } else {
-            binding.layoutMqttStatus.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.status_connecting_bg));
-            binding.tvMqttStatus.setTextColor(ContextCompat.getColor(getContext(), R.color.status_connecting));
-            binding.viewStatusDot.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.status_connecting));
-        }
+        // Banner eliminado por preferencia de diseño
     }
 
     @Override
