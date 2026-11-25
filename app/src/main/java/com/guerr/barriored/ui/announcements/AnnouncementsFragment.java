@@ -15,7 +15,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -82,6 +84,7 @@ public class AnnouncementsFragment extends Fragment implements AnnouncementAdapt
                 isAdmin = currentUser != null && currentUser.isAdmin();
 
                 binding.fabAddAnnouncement.setVisibility(isAdmin ? View.VISIBLE : View.GONE);
+                binding.tvAnnouncementsRoleBadge.setText(isAdmin ? "ADMINISTRADOR" : "VECINO");
                 adapter.setIsAdmin(isAdmin);
             }
 
@@ -129,27 +132,31 @@ public class AnnouncementsFragment extends Fragment implements AnnouncementAdapt
         Context context = getContext();
         if (context == null) return;
 
+        BottomSheetDialog sheetDialog = new BottomSheetDialog(context);
         View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_create_announcement, null);
+        sheetDialog.setContentView(dialogView);
+
         EditText etTitle = dialogView.findViewById(R.id.etAnnouncementTitle);
         EditText etDesc = dialogView.findViewById(R.id.etAnnouncementDesc);
-        CheckBox cbUrgent = dialogView.findViewById(R.id.cbIsUrgent);
+        MaterialSwitch switchUrgent = dialogView.findViewById(R.id.switchIsUrgent);
 
-        new MaterialAlertDialogBuilder(context)
-                .setView(dialogView)
-                .setPositiveButton(R.string.btn_publish_announcement, (dialog, which) -> {
-                    String title = etTitle.getText() != null ? etTitle.getText().toString().trim() : "";
-                    String desc = etDesc.getText() != null ? etDesc.getText().toString().trim() : "";
-                    boolean isUrgent = cbUrgent.isChecked();
+        dialogView.findViewById(R.id.btnCloseAnnouncementModal).setOnClickListener(v -> sheetDialog.dismiss());
+        dialogView.findViewById(R.id.btnCancelAnnouncementModal).setOnClickListener(v -> sheetDialog.dismiss());
+        dialogView.findViewById(R.id.btnPublishAnnouncementModal).setOnClickListener(v -> {
+            String title = etTitle.getText() != null ? etTitle.getText().toString().trim() : "";
+            String desc = etDesc.getText() != null ? etDesc.getText().toString().trim() : "";
+            boolean isUrgent = switchUrgent.isChecked();
 
-                    if (TextUtils.isEmpty(title)) {
-                        Toast.makeText(context, "El título del aviso no puede estar vacío", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+            if (TextUtils.isEmpty(title)) {
+                Toast.makeText(context, "El título del aviso no puede estar vacío", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                    publishAnnouncement(title, desc, isUrgent);
-                })
-                .setNegativeButton(R.string.btn_cancel, null)
-                .show();
+            publishAnnouncement(title, desc, isUrgent);
+            sheetDialog.dismiss();
+        });
+
+        sheetDialog.show();
     }
 
     private void publishAnnouncement(String title, String desc, boolean isUrgent) {

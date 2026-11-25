@@ -70,8 +70,11 @@ public class ProfileFragment extends Fragment {
                 if (!isAdded() || binding == null) return;
                 currentUser = snapshot.getValue(User.class);
                 if (currentUser != null) {
-                    // Formato exacto de identidad: Nombre · #311A
-                    binding.tvProfileName.setText(currentUser.getIdentidad());
+                    String nombre = currentUser.getNombre() != null && !currentUser.getNombre().trim().isEmpty()
+                            ? currentUser.getNombre().trim() : "Vecino BarrioRed";
+                    binding.tvProfileName.setText(nombre);
+                    binding.tvProfileInitials.setText(computeInitials(nombre));
+
                     if (currentUser.getEmail() != null && !currentUser.getEmail().isEmpty()) {
                         binding.tvProfileEmail.setText(currentUser.getEmail());
                     }
@@ -83,16 +86,7 @@ public class ProfileFragment extends Fragment {
                     }
 
                     boolean isAdmin = currentUser.isAdmin();
-                    Context ctx = getContext();
-                    if (ctx != null) {
-                        if (isAdmin) {
-                            binding.tvProfileRole.setText("Rol: Administrador");
-                            binding.tvProfileRole.setBackgroundColor(ContextCompat.getColor(ctx, R.color.primary));
-                        } else {
-                            binding.tvProfileRole.setText("Rol: Vecino");
-                            binding.tvProfileRole.setBackgroundColor(ContextCompat.getColor(ctx, R.color.cat_mascota));
-                        }
-                    }
+                    binding.tvProfileRole.setText(isAdmin ? R.string.role_admin : R.string.role_vecino);
                 }
             }
 
@@ -102,6 +96,15 @@ public class ProfileFragment extends Fragment {
         };
 
         userRef.addValueEventListener(userListener);
+    }
+
+    private String computeInitials(String name) {
+        if (name == null || name.trim().isEmpty()) return "BR";
+        String[] parts = name.trim().split("\\s+");
+        if (parts.length == 1) {
+            return parts[0].substring(0, Math.min(2, parts[0].length())).toUpperCase();
+        }
+        return (parts[0].substring(0, 1) + parts[parts.length - 1].substring(0, 1)).toUpperCase();
     }
 
     private void saveProfileChanges() {

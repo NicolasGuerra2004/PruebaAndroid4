@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">BarrioRed</string>
-    
+
     <!-- Navigation Tabs -->
     <string name="nav_alerts">Alertas</string>
     <string name="nav_announcements">Avisos</string>
@@ -8,59 +8,69 @@
     <string name="nav_profile">Perfil</string>
 
     <!-- MQTT Status -->
-    <string name="mqtt_connected">Conectado a BarrioRed en vivo</string>
+    <string name="mqtt_connected">Conectado en vivo</string>
     <string name="mqtt_connecting">Conectando con BarrioRed...</string>
     <string name="mqtt_disconnected">Desconectado del servidor de alertas</string>
 
     <!-- Categories -->
-    <string name="cat_robo">Robo / Seguridad</string>
-    <string name="cat_medica">Emergencia Médica</string>
-    <string name="cat_sospechosa">Actividad Sospechosa</string>
-    <string name="cat_incendio">Incendio / Siniestro</string>
-    <string name="cat_mascota">Mascota / Comunidad</string>
+    <string name="cat_robo">Robo</string>
+    <string name="cat_medica">Médica</string>
+    <string name="cat_sospechosa">Sospechosa</string>
+    <string name="cat_incendio">Incendio</string>
+    <string name="cat_mascota">Comunidad</string>
 
     <!-- Auth -->
-    <string name="login_title">Bienvenido a BarrioRed</string>
-    <string name="login_subtitle">Tu comunidad conectada y segura en tiempo real</string>
-    <string name="email_hint">Correo electrónico</string>
+    <string name="login_tagline">Tu comunidad, conectada.</string>
+    <string name="login_title">Tu barrio unido.\nTu hogar seguro.</string>
+    <string name="login_subtitle">Comunícate, cuida y mantente al día con las personas de tu comunidad.</string>
+    <string name="email_hint">Correo</string>
     <string name="password_hint">Contraseña</string>
     <string name="btn_login">Iniciar Sesión</string>
     <string name="btn_google_signin">Continuar con Google</string>
-    <string name="dont_have_account">¿No tienes cuenta? Regístrate aquí</string>
-    <string name="already_have_account">¿Ya tienes cuenta? Inicia sesión</string>
-    <string name="register_title">Registro de Vecino</string>
-    <string name="register_subtitle">Únete a la red vecinal</string>
+    <string name="dont_have_account">¿Aún no tienes cuenta?</string>
+    <string name="register_action">Regístrate</string>
+    <string name="already_have_account">¿Ya tienes cuenta?</string>
+    <string name="login_action">Inicia sesión</string>
+    <string name="register_title">Sé parte de tu barrio</string>
+    <string name="register_subtitle">Conecta con quienes comparten tu comunidad.</string>
     <string name="name_hint">Nombre completo</string>
-    <string name="address_hint">Dirección / Pasaje (Ej. Pasaje Los Aromos 123)</string>
-    <string name="btn_register">Registrarse</string>
+    <string name="vivienda_hint">Vivienda (ej. 311A)</string>
+    <string name="address_hint">Vivienda (ej. 311A)</string>
+    <string name="btn_register">Registrarme</string>
 
     <!-- Alerts Screen -->
-    <string name="alerts_quick_title">Emisión Rápida de Alerta</string>
-    <string name="alerts_history_title">Historial de Alertas Recientes</string>
+    <string name="alerts_header_subtitle">La seguridad empieza entre vecinos.</string>
+    <string name="alerts_quick_title">Enviar alerta</string>
+    <string name="alerts_quick_subtitle">Elige qué está pasando</string>
+    <string name="alerts_history_title">Alertas recientes</string>
     <string name="empty_alerts">No hay alertas registradas aún</string>
-    <string name="emit_alert_dialog_title">Emitir Alerta:</string>
-    <string name="alert_desc_hint">Detalle opcional (ej. vehículo sospechoso, color, dirección)</string>
-    <string name="btn_send_alert">Emitir Alerta Ahora</string>
+    <string name="emit_alert_dialog_title">Confirmar alerta</string>
+    <string name="alert_desc_hint">Cuéntanos qué está pasando…</string>
+    <string name="btn_send_alert">Confirmar</string>
     <string name="btn_cancel">Cancelar</string>
 
     <!-- Announcements Screen -->
-    <string name="announcements_title">Avisos Oficiales de la Administración</string>
+    <string name="announcements_title">Avisos</string>
+    <string name="announcements_subtitle">Lo importante de tu comunidad, aquí.</string>
     <string name="empty_announcements">No hay avisos oficiales en este momento</string>
     <string name="badge_urgent">URGENTE</string>
     <string name="badge_official">OFICIAL</string>
-    <string name="create_announcement_title">Nuevo Aviso Oficial</string>
-    <string name="announcement_title_hint">Título del aviso</string>
-    <string name="announcement_desc_hint">Descripción o detalle del aviso</string>
-    <string name="checkbox_urgent">¿Marcar como urgente?</string>
-    <string name="btn_publish_announcement">Publicar Aviso</string>
+    <string name="create_announcement_title">Nuevo aviso</string>
+    <string name="announcement_title_hint">Ej. Mantenimiento de accesos</string>
+    <string name="announcement_desc_hint">Escribe los detalles del comunicado…</string>
+    <string name="checkbox_urgent">Urgente</string>
+    <string name="btn_publish_announcement">Publicar aviso</string>
 
     <!-- Chat Screen -->
-    <string name="chat_title">Chat Vecinal Comunitario</string>
-    <string name="chat_input_hint">Escribe un mensaje a tus vecinos...</string>
+    <string name="chat_title">Chat vecinal</string>
+    <string name="chat_subtitle">Comunidad general · Vecinos verificados</string>
+    <string name="chat_banner">Un espacio para cuidarnos y ayudar.</string>
+    <string name="chat_input_hint">Escribe un mensaje…</string>
     <string name="empty_chat">Sé el primero en saludar a los vecinos</string>
 
     <!-- Profile Screen -->
-    <string name="profile_title">Perfil del Residente</string>
+    <string name="profile_title">Perfil</string>
+    <string name="profile_subtitle">Tu información en la comunidad.</string>
     <string name="role_vecino">Vecino</string>
     <string name="role_admin">Administrador</string>
     <string name="btn_save_profile">Guardar Cambios</string>

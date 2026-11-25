@@ -10,24 +10,44 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="24dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:text="BARRIORED"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.06"
+            android:textColor="@color/primary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="@string/profile_title"
-            android:textSize="22sp"
+            android:textSize="26sp"
             android:textStyle="bold"
             android:textColor="@color/text_primary" />
 
-        <!-- User Info Card -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/profile_subtitle"
+            android:textSize="13sp"
+            android:textColor="@color/text_secondary" />
+
+        <!-- Identity Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
             app:strokeWidth="1dp"
             app:strokeColor="@color/border_color"
             app:cardBackgroundColor="@color/card_surface">
@@ -37,23 +57,26 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="20dp">
 
-                <!-- Avatar circle -->
+                <!-- Initials Avatar -->
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    app:cardCornerRadius="36dp"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    app:cardCornerRadius="32dp"
                     app:cardElevation="0dp"
+                    app:strokeWidth="0dp"
                     app:cardBackgroundColor="@color/primary_light">
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_profile"
-                        app:tint="@color/primary"
-                        android:contentDescription="Avatar" />
+                    <TextView
+                        android:id="@+id/tvProfileInitials"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="VR"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary" />
                 </com.google.android.material.card.MaterialCardView>
 
                 <TextView
@@ -61,141 +84,148 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="Nombre del Vecino"
+                    android:text="Vecino BarrioRed"
+                    android:textAlignment="center"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/text_primary" />
 
-                <TextView
-                    android:id="@+id/tvProfileEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="vecino@email.com"
-                    android:textSize="13sp"
-                    android:textColor="@color/text_secondary" />
-
-                <!-- Role Badge -->
+                <!-- Role Pill Badge -->
                 <TextView
                     android:id="@+id/tvProfileRole"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/ic_dot"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_pill_badge"
+                    android:backgroundTint="@color/primary_light"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:text="Rol: Vecino"
-                    android:textSize="12sp"
+                    android:text="Vecino"
+                    android:textSize="11sp"
                     android:textStyle="bold"
-                    android:textColor="@color/white" />
-
+                    android:textColor="@color/primary" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Edit Profile Section -->
-        <com.google.android.material.card.MaterialCardView
+        <!-- Account Data Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:layout_marginStart="4dp"
+            android:text="Datos de tu cuenta"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary" />
+
+        <!-- Read-only Email -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilProfileEmail"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/border_color"
-            app:cardBackgroundColor="@color/card_surface">
+            android:layout_marginTop="14dp"
+            android:hint="@string/email_hint"
+            app:boxBackgroundColor="@color/input_disabled_bg"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxStrokeColor="@color/input_disabled_border"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/ic_lock"
+            app:endIconTint="@color/primary"
+            app:helperText="El correo no se puede modificar."
+            app:helperTextTextColor="@color/text_secondary">
 
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvProfileEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
+                android:enabled="false"
+                android:focusable="false"
+                android:text="vecino@correo.com"
+                android:textColor="@color/text_secondary"
+                android:textSize="15sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Editar Datos del Vecino"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_primary" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="Tu identidad visible será: Nombre · #Vivienda"
-                    android:textSize="12sp"
-                    android:textColor="@color/text_muted" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilProfileName"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:hint="@string/name_hint">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etProfileNameInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPersonName|textCapWords"
-                        android:maxLines="1" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilProfileVivienda"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:hint="N° Vivienda / Depto (ej: 311A, 102B)">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etProfileViviendaInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textCapCharacters"
-                        android:maxLines="1" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnSaveProfile"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/btn_save_profile"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:cornerRadius="10dp"
-                    app:backgroundTint="@color/primary" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Spacer -->
-        <View
+        <!-- Editable Name -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilProfileName"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:hint="Nombre"
+            app:boxBackgroundColor="@color/card_surface"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxStrokeColor="@color/border_input">
 
-        <!-- Logout Button -->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etProfileNameInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName|textCapWords"
+                android:maxLines="1"
+                android:textColor="@color/text_primary"
+                android:textSize="15sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Editable Vivienda -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilProfileVivienda"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:hint="Vivienda"
+            app:boxBackgroundColor="@color/card_surface"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxStrokeColor="@color/border_input">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etProfileViviendaInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapCharacters"
+                android:maxLines="1"
+                android:textColor="@color/text_primary"
+                android:textSize="15sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Save Changes Pill Button -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnLogout"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:id="@+id/btnSaveProfile"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginBottom="24dp"
-            android:text="@string/btn_logout"
-            android:textColor="@color/cat_robo"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/btn_save_profile"
+            android:textColor="@color/white"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:cornerRadius="12dp"
-            app:strokeColor="@color/cat_robo"
-            app:strokeWidth="1.5dp"
-            app:icon="@drawable/ic_logout"
-            app:iconGravity="textStart"
-            app:iconTint="@color/cat_robo" />
+            app:cornerRadius="25dp"
+            app:backgroundTint="@color/primary" />
+
+        <!-- Logout Red Pill Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/btn_logout"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:cornerRadius="25dp"
+            app:backgroundTint="@color/cat_robo" />
 
     </LinearLayout>
 </ScrollView>

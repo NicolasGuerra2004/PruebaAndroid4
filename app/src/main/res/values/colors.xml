@@ -4,60 +4,70 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- Brand Palette BarrioRed -->
-    <color name="primary">#1E3A8A</color>
-    <color name="primary_dark">#172554</color>
-    <color name="primary_variant">#2563EB</color>
-    <color name="primary_light">#DBEAFE</color>
-    <color name="accent">#3B82F6</color>
+    <!-- Brand Palette BarrioRed (Teal Figma Design) -->
+    <color name="primary">#0F766E</color>
+    <color name="primary_dark">#0D5D57</color>
+    <color name="primary_variant">#14B8A6</color>
+    <color name="primary_light">#E3F2EE</color>
+    <color name="accent">#0F766E</color>
 
     <!-- Backgrounds & Neutrals -->
     <color name="bg_screen">#F8FAFC</color>
     <color name="card_surface">#FFFFFF</color>
-    <color name="text_primary">#0F172A</color>
-    <color name="text_secondary">#475569</color>
-    <color name="text_muted">#94A3B8</color>
-    <color name="border_color">#E2E8F0</color>
+    <color name="text_primary">#102A2A</color>
+    <color name="text_secondary">#586A73</color>
+    <color name="text_muted">#78878E</color>
+    <color name="border_color">#DFE7EB</color>
+    <color name="border_divider">#DEE5E9</color>
     <color name="border_input">#CBD5E1</color>
+    <color name="border_input_modal">#B9C7CC</color>
+    <color name="input_disabled_bg">#EDF1F5</color>
+    <color name="input_disabled_border">#D8E1E6</color>
 
     <!-- MQTT Broker Status -->
-    <color name="status_connected">#16A34A</color>
-    <color name="status_connected_bg">#DCFCE7</color>
+    <color name="status_connected">#0F766E</color>
+    <color name="status_connected_dot">#A7F3D0</color>
+    <color name="status_connected_bg">#0F766E</color>
     <color name="status_connecting">#D97706</color>
     <color name="status_connecting_bg">#FEF3C7</color>
     <color name="status_disconnected">#DC2626</color>
     <color name="status_disconnected_bg">#FEE2E2</color>
 
-    <!-- Alert Category Colors (Strictly according to spec) -->
-    <!-- Robo / Seguridad (Rojo) -->
+    <!-- Alert Category Colors -->
     <color name="cat_robo">#D32F2F</color>
-    <color name="cat_robo_bg">#FFEBEE</color>
+    <color name="cat_robo_bg">#FDECEC</color>
+    <color name="cat_robo_subtext">#8F3D38</color>
 
-    <!-- Emergencia Médica (Naranjo) -->
     <color name="cat_medica">#F57C00</color>
-    <color name="cat_medica_bg">#FFF3E0</color>
+    <color name="cat_medica_bg">#FFF2E6</color>
 
-    <!-- Actividad Sospechosa (Ámbar) -->
     <color name="cat_sospechosa">#FFA000</color>
-    <color name="cat_sospechosa_bg">#FFF8E1</color>
+    <color name="cat_sospechosa_bg">#FFF7DE</color>
 
-    <!-- Incendio / Siniestro (Rojo oscuro) -->
     <color name="cat_incendio">#B71C1C</color>
-    <color name="cat_incendio_bg">#FFCDD2</color>
+    <color name="cat_incendio_bg">#FCEBEC</color>
 
-    <!-- Mascota / Comunidad (Teal / Verde azulado) -->
     <color name="cat_mascota">#00796B</color>
-    <color name="cat_mascota_bg">#E0F2F1</color>
+    <color name="cat_mascota_bg">#E5F3F0</color>
+
+    <!-- Alert States -->
+    <color name="state_activa_bg">#FDECEC</color>
+    <color name="state_activa_text">#B42318</color>
+    <color name="state_atendida_bg">#FFF3DB</color>
+    <color name="state_atendida_text">#875800</color>
+    <color name="state_cerrada_bg">#EDF1F5</color>
+    <color name="state_cerrada_text">#586A73</color>
 
     <!-- Chat Bubbles -->
-    <color name="chat_sent_bg">#1E3A8A</color>
+    <color name="chat_sent_bg">#0F766E</color>
     <color name="chat_sent_text">#FFFFFF</color>
+    <color name="chat_sent_meta">#D2F1EC</color>
     <color name="chat_received_bg">#FFFFFF</color>
-    <color name="chat_received_text">#0F172A</color>
+    <color name="chat_received_text">#102A2A</color>
 
-    <!-- Urgent Announcement -->
-    <color name="badge_urgent">#DC2626</color>
-    <color name="badge_urgent_bg">#FEE2E2</color>
-    <color name="badge_official">#2563EB</color>
-    <color name="badge_official_bg">#EFF6FF</color>
+    <!-- Urgent / Official Announcement -->
+    <color name="badge_urgent">#B42318</color>
+    <color name="badge_urgent_bg">#FDECEC</color>
+    <color name="badge_official">#0F766E</color>
+    <color name="badge_official_bg">#E3F2EE</color>
 </resources>

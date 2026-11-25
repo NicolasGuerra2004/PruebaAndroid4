@@ -87,6 +87,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public void bind(ChatMessage message) {
+            binding.tvSentSender.setText(message.getSenderNombre() != null ? message.getSenderNombre() : "Yo");
             binding.tvSentMessage.setText(message.getTexto());
             if (message.getTimestamp() > 0) {
                 String time = DateFormat.format("HH:mm", new Date(message.getTimestamp())).toString();

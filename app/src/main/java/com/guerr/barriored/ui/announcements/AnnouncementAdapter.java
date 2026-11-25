@@ -79,7 +79,7 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
             binding.tvAnnouncementAuthor.setText(announcement.getAutorNombre() != null ? announcement.getAutorNombre() : "Directiva BarrioRed");
 
             if (announcement.getFecha() > 0) {
-                String formattedDate = DateFormat.format("dd MMM yyyy, HH:mm", new Date(announcement.getFecha())).toString();
+                String formattedDate = DateFormat.format("dd MMM · HH:mm", new Date(announcement.getFecha())).toString();
                 binding.tvAnnouncementDate.setText(formattedDate);
             } else {
                 binding.tvAnnouncementDate.setText("Reciente");
@@ -87,14 +87,12 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
 
             if (announcement.isImportante()) {
                 binding.tvAnnouncementBadge.setText(R.string.badge_urgent);
-                binding.tvAnnouncementBadge.setBackgroundColor(ContextCompat.getColor(context, R.color.badge_urgent));
-                binding.cardAnnouncement.setStrokeColor(ContextCompat.getColor(context, R.color.badge_urgent));
-                binding.cardAnnouncement.setStrokeWidth(2);
+                binding.tvAnnouncementBadge.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.badge_urgent_bg));
+                binding.tvAnnouncementBadge.setTextColor(ContextCompat.getColor(context, R.color.badge_urgent));
             } else {
                 binding.tvAnnouncementBadge.setText(R.string.badge_official);
-                binding.tvAnnouncementBadge.setBackgroundColor(ContextCompat.getColor(context, R.color.badge_official));
-                binding.cardAnnouncement.setStrokeColor(ContextCompat.getColor(context, R.color.border_color));
-                binding.cardAnnouncement.setStrokeWidth(1);
+                binding.tvAnnouncementBadge.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.badge_official_bg));
+                binding.tvAnnouncementBadge.setTextColor(ContextCompat.getColor(context, R.color.badge_official));
             }
 
             // Delete action (Admin only)

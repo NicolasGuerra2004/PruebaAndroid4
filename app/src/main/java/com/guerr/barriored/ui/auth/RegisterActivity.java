@@ -32,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         binding.btnRegister.setOnClickListener(v -> performRegistration());
         binding.tvGoToLogin.setOnClickListener(v -> finish());
+        binding.btnBackRegister.setOnClickListener(v -> finish());
     }
 
     private void performRegistration() {

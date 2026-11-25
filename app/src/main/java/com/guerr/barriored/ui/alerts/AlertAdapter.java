@@ -85,14 +85,12 @@ public class AlertAdapter extends RecyclerView.Adapter<AlertAdapter.AlertViewHol
         public void bind(Alert alert, boolean isAdmin, OnAlertStateChangeListener listener) {
             Context context = itemView.getContext();
 
-            binding.tvAlertCategoryBadge.setText(alert.getCategoriaDisplay().toUpperCase());
+            binding.tvAlertCategoryBadge.setText(alert.getCategoriaDisplay());
             binding.tvAlertDescription.setText(alert.getDescripcion() != null && !alert.getDescripcion().trim().isEmpty()
                     ? alert.getDescripcion()
                     : "Alerta comunitaria.");
 
-            // Identidad exacta requerida: Nombre · #311A
-            binding.tvAlertAuthor.setText(alert.getAutorIdentidad());
-
+            String timeText = "Reciente";
             if (alert.getTimestamp() > 0) {
                 CharSequence relative = DateUtils.getRelativeTimeSpanString(
                         alert.getTimestamp(),
@@ -100,45 +98,27 @@ public class AlertAdapter extends RecyclerView.Adapter<AlertAdapter.AlertViewHol
                         DateUtils.MINUTE_IN_MILLIS,
                         DateUtils.FORMAT_ABBREV_RELATIVE
                 );
-                binding.tvAlertTime.setText(relative);
-            } else {
-                binding.tvAlertTime.setText("Reciente");
+                timeText = relative.toString();
             }
 
-            // Category color
-            int colorRes = R.color.cat_robo;
-            String cat = alert.getCategoria() != null ? alert.getCategoria().toUpperCase() : "";
-            switch (cat) {
-                case Alert.CAT_ROBO:
-                    colorRes = R.color.cat_robo;
-                    break;
-                case Alert.CAT_MEDICA:
-                    colorRes = R.color.cat_medica;
-                    break;
-                case Alert.CAT_SOSPECHOSA:
-                    colorRes = R.color.cat_sospechosa;
-                    break;
-                case Alert.CAT_INCENDIO:
-                    colorRes = R.color.cat_incendio;
-                    break;
-                case Alert.CAT_MASCOTA:
-                    colorRes = R.color.cat_mascota;
-                    break;
-            }
-            binding.tvAlertCategoryBadge.setBackgroundColor(ContextCompat.getColor(context, colorRes));
+            // Identidad exacta requerida: Nombre · #311A · Tiempo
+            binding.tvAlertAuthor.setText(alert.getAutorIdentidad() + " · " + timeText);
 
             // Estado de la alerta: "activa", "atendida", "cerrada"
             String estado = alert.getEstado() != null ? alert.getEstado().toLowerCase() : Alert.STATE_ACTIVA;
             binding.tvAlertStateBadge.setText(estado.toUpperCase());
 
             if (Alert.STATE_CERRADA.equalsIgnoreCase(estado)) {
-                binding.tvAlertStateBadge.setBackgroundColor(ContextCompat.getColor(context, R.color.text_muted));
-                binding.cardAlert.setAlpha(0.7f);
+                binding.tvAlertStateBadge.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.state_cerrada_bg));
+                binding.tvAlertStateBadge.setTextColor(ContextCompat.getColor(context, R.color.state_cerrada_text));
+                binding.cardAlert.setAlpha(0.85f);
             } else if (Alert.STATE_ATENDIDA.equalsIgnoreCase(estado)) {
-                binding.tvAlertStateBadge.setBackgroundColor(ContextCompat.getColor(context, R.color.primary_variant));
+                binding.tvAlertStateBadge.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.state_atendida_bg));
+                binding.tvAlertStateBadge.setTextColor(ContextCompat.getColor(context, R.color.state_atendida_text));
                 binding.cardAlert.setAlpha(1.0f);
             } else {
-                binding.tvAlertStateBadge.setBackgroundColor(ContextCompat.getColor(context, R.color.cat_robo));
+                binding.tvAlertStateBadge.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.state_activa_bg));
+                binding.tvAlertStateBadge.setTextColor(ContextCompat.getColor(context, R.color.state_activa_text));
                 binding.cardAlert.setAlpha(1.0f);
             }
 

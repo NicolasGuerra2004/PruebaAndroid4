@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,7 +16,9 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -87,6 +90,7 @@ public class AlertsFragment extends Fragment implements MqttManager.MqttStatusLi
                         currentUserProfile = snapshot.getValue(User.class);
                         boolean isAdmin = currentUserProfile != null && currentUserProfile.isAdmin();
                         alertAdapter.setIsAdmin(isAdmin);
+                        binding.tvAlertsRoleBadge.setText(isAdmin ? "ADMINISTRADOR" : "VECINO");
                     }
                 }
 
@@ -102,20 +106,64 @@ public class AlertsFragment extends Fragment implements MqttManager.MqttStatusLi
         Context context = getContext();
         if (context == null) return;
 
+        BottomSheetDialog sheetDialog = new BottomSheetDialog(context);
         View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_emit_alert, null);
+        sheetDialog.setContentView(dialogView);
+
+        MaterialCardView cardCategory = dialogView.findViewById(R.id.cardModalCategory);
+        ImageView ivIcon = dialogView.findViewById(R.id.ivModalCategoryIcon);
         TextView tvCategoryName = dialogView.findViewById(R.id.tvCategoryName);
+        TextView tvCategorySub = dialogView.findViewById(R.id.tvCategorySubtitle);
         EditText etAlertDesc = dialogView.findViewById(R.id.etAlertDesc);
+        TextView tvSenderIdentity = dialogView.findViewById(R.id.tvModalSenderIdentity);
+        MaterialButton btnConfirm = dialogView.findViewById(R.id.btnConfirmAlertModal);
 
-        tvCategoryName.setText("Emitir Alerta: " + categoryTitle);
+        tvCategoryName.setText(categoryTitle);
 
-        new MaterialAlertDialogBuilder(context)
-                .setView(dialogView)
-                .setPositiveButton(R.string.btn_send_alert, (dialog, which) -> {
-                    String desc = etAlertDesc.getText() != null ? etAlertDesc.getText().toString().trim() : "";
-                    emitAlert(categoryKey, desc);
-                })
-                .setNegativeButton(R.string.btn_cancel, null)
-                .show();
+        int bgRes = R.color.cat_robo_bg;
+        int accentRes = R.color.cat_robo;
+        int iconRes = R.drawable.ic_shield;
+        switch (categoryKey) {
+            case Alert.CAT_MEDICA:
+                bgRes = R.color.cat_medica_bg;
+                accentRes = R.color.cat_medica;
+                iconRes = R.drawable.ic_medical;
+                break;
+            case Alert.CAT_SOSPECHOSA:
+                bgRes = R.color.cat_sospechosa_bg;
+                accentRes = R.color.cat_sospechosa;
+                iconRes = R.drawable.ic_eye;
+                break;
+            case Alert.CAT_INCENDIO:
+                bgRes = R.color.cat_incendio_bg;
+                accentRes = R.color.cat_incendio;
+                iconRes = R.drawable.ic_fire;
+                break;
+            case Alert.CAT_MASCOTA:
+                bgRes = R.color.cat_mascota_bg;
+                accentRes = R.color.cat_mascota;
+                iconRes = R.drawable.ic_people;
+                break;
+        }
+
+        cardCategory.setCardBackgroundColor(ContextCompat.getColor(context, bgRes));
+        ivIcon.setImageResource(iconRes);
+        tvCategoryName.setTextColor(ContextCompat.getColor(context, accentRes));
+        tvCategorySub.setTextColor(ContextCompat.getColor(context, R.color.text_secondary));
+        btnConfirm.setBackgroundTintList(ContextCompat.getColorStateList(context, accentRes));
+
+        String identityText = currentUserProfile != null ? currentUserProfile.getIdentidad() : "Vecino · #S/N";
+        tvSenderIdentity.setText("Se enviará como " + identityText);
+
+        dialogView.findViewById(R.id.btnCloseAlertModal).setOnClickListener(v -> sheetDialog.dismiss());
+        dialogView.findViewById(R.id.btnCancelAlertModal).setOnClickListener(v -> sheetDialog.dismiss());
+        btnConfirm.setOnClickListener(v -> {
+            String desc = etAlertDesc.getText() != null ? etAlertDesc.getText().toString().trim() : "";
+            emitAlert(categoryKey, desc);
+            sheetDialog.dismiss();
+        });
+
+        sheetDialog.show();
     }
 
     private void emitAlert(String category, String description) {
@@ -133,7 +181,6 @@ public class AlertsFragment extends Fragment implements MqttManager.MqttStatusLi
             alertId = "alert_" + System.currentTimeMillis();
         }
 
-        // Construir alerta con vivienda, identidad exacta (Nombre · #311A) y estado inicial "activa"
         Alert alert = new Alert(
                 alertId,
                 category,
@@ -145,10 +192,8 @@ public class AlertsFragment extends Fragment implements MqttManager.MqttStatusLi
         );
         alert.setEstado(Alert.STATE_ACTIVA);
 
-        // 1. Guardar en Firebase Realtime Database para persistencia
         alertsRef.child(alertId).setValue(alert);
 
-        // 2. Publicar por MQTT (EMQX Cloud) para transmisión y alerta inmediata
         Context context = getContext();
         if (context != null) {
             MqttManager.getInstance(context).publishAlert(alert, new MqttManager.PublishCallback() {
@@ -202,10 +247,10 @@ public class AlertsFragment extends Fragment implements MqttManager.MqttStatusLi
                     }
                 }
 
-                // Sort descending by timestamp (newest first)
                 Collections.sort(list, (a1, a2) -> Long.compare(a2.getTimestamp(), a1.getTimestamp()));
 
                 alertAdapter.setAlerts(list);
+                updateAlertsCount(list.size());
                 binding.tvEmptyAlerts.setVisibility(list.isEmpty() ? View.VISIBLE : View.GONE);
             }
 
@@ -217,6 +262,11 @@ public class AlertsFragment extends Fragment implements MqttManager.MqttStatusLi
         };
 
         alertsRef.limitToLast(50).addValueEventListener(alertsListener);
+    }
+
+    private void updateAlertsCount(int count) {
+        if (binding == null) return;
+        binding.tvAlertsCount.setText(count == 1 ? "1 reporte" : count + " reportes");
     }
 
     @Override
@@ -247,24 +297,28 @@ public class AlertsFragment extends Fragment implements MqttManager.MqttStatusLi
         binding = null;
     }
 
-    // MQTT Callbacks
     @Override
     public void onConnectionStatusChanged(boolean connected, String statusMessage) {
         if (!isAdded() || binding == null || getContext() == null) return;
 
-        binding.tvMqttStatus.setText(statusMessage);
+        binding.tvMqttStatus.setText(connected ? getString(R.string.mqtt_connected) : statusMessage);
 
-        int textColor = connected ? R.color.status_connected : R.color.status_connecting;
-        int bgColor = connected ? R.color.status_connected_bg : R.color.status_connecting_bg;
-
-        binding.tvMqttStatus.setTextColor(ContextCompat.getColor(getContext(), textColor));
-        binding.layoutMqttStatus.setBackgroundColor(ContextCompat.getColor(getContext(), bgColor));
+        if (connected) {
+            binding.layoutMqttStatus.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.status_connected_bg));
+            binding.tvMqttStatus.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
+            binding.viewStatusDot.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.status_connected_dot));
+        } else {
+            binding.layoutMqttStatus.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.status_connecting_bg));
+            binding.tvMqttStatus.setTextColor(ContextCompat.getColor(getContext(), R.color.status_connecting));
+            binding.viewStatusDot.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.status_connecting));
+        }
     }
 
     @Override
     public void onAlertMessageReceived(Alert alert) {
         if (!isAdded() || binding == null) return;
         alertAdapter.addAlertAtTop(alert);
+        updateAlertsCount(alertAdapter.getItemCount());
         binding.tvEmptyAlerts.setVisibility(View.GONE);
         binding.rvAlerts.smoothScrollToPosition(0);
     }
